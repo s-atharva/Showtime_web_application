@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Add a movie</title>
+    <style>
+      /* Center the form on the page */
+      form {
+        margin: 0 auto;
+        width: 50%;
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        text-align: center;
+      }
+
+      /* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+
+		.logout-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+    </style>
+</head>
+<body>
+<h1>Update a movie</h1>
+<h2>Current movie details: </h2>
+<h3></h3>
+    <form method="post" action="{{ url_for('theatre_services.update_movie_as_admin', movie_id=movie_id) }}">
+        <label for="name">Title:</label>
+        <input type="text" name="name" id="name" value="{{request.form.get('name', movie.name)}}" required><br><br>
+
+        <label for="release_date">Release Date:</label>
+        <input type="date" name="release_date" id="release_date" value="{{request.form.get('release_date', movie.release_date)}}" required><br><br>
+
+        <label for="tags">Genre: (current: {{movie.tags}})</label><br><br>
+          {% for tag in tags %}
+            <input type="checkbox" name="tag" id="tags" value="{{ tag }}">{{ tag }}<br><br>
+          {% endfor %}
+
+        <button type="submit">Update a Movie</button>
+    </form>
+    <form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="/admin_dashboard" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+</body>
+</html>

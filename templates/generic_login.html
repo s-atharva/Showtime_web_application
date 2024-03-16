@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Showtime</title>
+</head>
+<body>
+    <h1>Welcome to Showtime</h1>
+    <p>Please select your login type:</p>
+    <ul>
+        <li><a href="{{ url_for('user_services.user_login') }}">User Login</a></li>
+        <li><a href="{{ url_for('user_services.admin_login') }}">Admin Login</a></li>
+    </ul>
+</body>
+</html>

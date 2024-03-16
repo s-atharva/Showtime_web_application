@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>List of Venues</h1>
+
+{% for venue in venues %}
+  <h2>{{ venue.name }}</h2>
+  <ul>
+    {% for show in venue.shows %}
+      <li>
+        <a href="#" data-toggle="collapse" data-target="#show-{{ show.id }}">{{ show.title }}</a>
+        <div id="show-{{ show.id }}" class="collapse">
+          <p>Date: {{ show.date }}</p>
+          <p>Time: {{ show.time }}</p>
+          <p>Price: {{ show.price }}</p>
+
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endfor %}
+<a  class="btn btn-danger">Delete</a>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Showtime</title>
+    <style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+
+		.logout-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+    </style>
+</head>
+<body>
+<h1>Welcome, {{ g.user_name }}</h1>
+
+<ul>
+    <li><a href="{{ url_for('theatre_services.get_movies_as_admin') }}">Movies</a></li>
+    <li><a href="{{ url_for('theatre_services.get_cities_as_admin') }}">Cities</a></li>
+    <li><a href="{{ url_for('theatre_services.search_venues_by_city_as_admin') }}">Venues</a></li>
+</ul>
+
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="/admin_dashboard" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+</body>
+</html>

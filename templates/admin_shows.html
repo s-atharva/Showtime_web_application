@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Showtime</title>
+    <style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+
+
+		.logout-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+    </style>
+</head>
+<body>
+<h1>Shows</h1>
+
+
+  <h1>List of Shows at {{venue['name']}}, {{city['name']}}</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Event date</th>
+        <th>Timings</th>
+        <th>Price</th>
+        <th>Bookings so far</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for show in shows%}
+        <tr>
+          <td>{{ movies_by_shows[show.id]['name']}}</td>
+          <td>{{ show.event_date }}</td>
+          <td>{{show.slot}}</td>
+          <td>{{ show.price }}</td>
+          <td>{{ show.booking_count}}</td>
+          <td>
+            <a href="{{ url_for('theatre_services.update_show_as_admin', show_id=show.id) }}" class="btn btn-primary">Update</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="{{ url_for('theatre_services.add_show_as_admin', venue_id=venue.id) }}" class="btn btn-primary">Add a show</a>
+    </div>
+  </div>
+
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+
+<form action="/admin_dashboard" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+
+</body>
+</html>

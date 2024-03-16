@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Showtime</title>
+	<style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		.profile-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+		.logout-button {
+			position: absolute;
+			top: 70px;
+			right: 10px;
+		}
+
+    </style>
+</head>
+<body>
+	<h1>Welcome, {{ g.user_name }}</h1>
+	<ul>
+		<li><a href="{{ url_for('theatre_services.get_show_booking_wizard') }}">Book a show</a></li>
+	</ul>
+
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="{{ url_for('user_services.get_user_profile') }}" method="POST">
+    <button type="submit" class="profile-button">Profile</button>
+</form>
+
+<form action="/admin_dashboard" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Showtime</title>
+    <style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+
+		.logout-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+    </style>
+</head>
+<body>
+<h1>Movies</h1>
+
+
+  <h1>List of Movies</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Tags</th>
+        <th>Release Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for movie in movies%}
+        <tr>
+          <td>{{ movie.name }}</td>
+          <td>{{ movie.tags }}</td>
+          <td>{{ movie.release_date }}</td>
+          <td>
+            <a href="{{ url_for('theatre_services.update_movie_as_admin', movie_id=movie.id) }}" class="btn btn-primary">Update</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="{{ url_for('theatre_services.add_movie_as_admin') }}" class="btn btn-primary">Add Movie</a>
+    </div>
+  </div>
+
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="/admin_dashboard" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+
+</body>
+</html>

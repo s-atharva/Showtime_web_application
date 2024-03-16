@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Add a movie</title>
+    <style>
+      /* Center the form on the page */
+      form {
+        margin: 0 auto;
+        width: 50%;
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+      }
+      /* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+
+		.logout-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+    </style>
+</head>
+<body>
+<h1>Add a movie</h1>
+    <form method="post" action="{{ url_for('theatre_services.add_movie_as_admin') }}">
+        <label for="name">Title:</label>
+        <input type="text" name="name" id="name" required><br><br>
+
+        <label for="release_date">Release Date:</label>
+        <input type="date" name="release_date" id="release_date" required><br><br>
+
+        <label for="tags">Genre:</label>
+          {% for tag in tags %}
+            <input type="checkbox" name="tag" id="tags" value="{{ tag }}">{{ tag }}<br><br>
+          {% endfor %}
+
+        <button type="submit">Create Movie</button>
+    </form>
+    <form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="/admin_dashboard" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+</body>
+</html>

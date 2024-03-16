@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Movies by City</title>
+    <style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		.profile-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+		.logout-button {
+			position: absolute;
+			top: 70px;
+			right: 10px;
+		}
+
+
+    </style>
+</head>
+<body>
+<h1>Search Movies by Location</h1>
+<form id="search_form" method="POST" action="{{ url_for('theatre_services.get_show_booking_wizard') }}">
+    <div class="form-group">
+        <label for="city_id">City:</label>
+        <div class="input-group">
+            <select name="city_id" id="city_id" class="form-control" required>
+                <option value="">Select a city</option>
+                {% for city in cities %}
+                <option value="{{ city.id }}">{{ city.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% if movies %}
+<h2>Movies in {{ current_city.name }}</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Release Date</th>
+        <th>Genre</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for movie in movies %}
+    <tr>
+        <td>
+            <a href="{{url_for('theatre_services.get_venues_and_shows_by_movie_as_user',city_id=current_city.id, movie_id=movie.id)}}">
+                {{ movie.name }}
+            </a>
+        </td>
+        <td>{{ movie.release_date }}</td>
+        <td>{{ movie.tags }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <h2>No movies available currently in this city {{current_city.name}}!!</h2>
+{% endif %}
+
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="{{ url_for('user_services.get_user_profile') }}" method="POST">
+    <button type="submit" class="profile-button">Profile</button>
+</form>
+
+<form action="/user_home" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+</body>
+</html>

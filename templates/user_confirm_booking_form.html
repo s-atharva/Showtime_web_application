@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Booking</title>
+    <style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		.profile-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+		.logout-button {
+			position: absolute;
+			top: 70px;
+			right: 10px;
+		}
+    </style>
+</head>
+<body>
+
+    <h1>Confirm your booking</h1>
+
+    <h3>Movie: {{movie.name}}</h3>
+    <h3>Venue: {{venue.name}}</h3>
+    <h3>Show: {{show.slot}}</h3>
+    <h3>City: {{city.name}}</h3>
+    <form action="{{ url_for('theatre_services.confirm_booking_as_user', movie_id=movie.id, show_id=show.id) }}" method="POST">
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+        <input type="hidden" name="show_id" value="{{ show.id }}">
+        <h3><label for="tickets_count">Number of Tickets:</label></h3>
+        <input type="number" id="tickets_count" name="tickets_count" value="1" min="1" max="10" required>
+        <br><br>
+        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+    </form>
+
+
+
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="{{ url_for('user_services.get_user_profile') }}" method="POST">
+    <button type="submit" class="profile-button">Profile</button>
+</form>
+
+<form action="/user_home" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+</body>
+</html>

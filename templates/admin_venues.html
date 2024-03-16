@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shows and Venues</title>
+    <style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+
+		.logout-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+
+    </style>
+</head>
+<body>
+<h1>Shows and Venues</h1>
+
+<form method="GET" action="{{ url_for('theatre_services.get_venues_by_city_as_admin') }}">
+    <div class="form-group">
+        <label for="city_id">City:</label>
+        <div class="input-group">
+            <select name="city_id" id="city_id" class="form-control" required>
+                <option value="">Select a city</option>
+                {% for city in cities %}
+                <option value="{{ city.id }}">{{ city.name }}</option>
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br><br>
+
+<h1>List of Venues</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Capacity</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for venue in venues%}
+    <tr>
+        <td>
+            <a href="{{url_for('theatre_services.get_shows_by_venue_as_admin', venue_id=venue.id)}}">
+                {{ venue.name }}
+            </a>
+        </td>
+        <td>{{ venue.address }}</td>
+        <td>{{ venue.capacity }}</td>
+        <td>
+            <a href="{{ url_for('theatre_services.update_venue_as_admin', venue_id=venue.id)}}" class="btn btn-primary">Update</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-sm-12">
+        <a href="{{ url_for('theatre_services.add_venue_as_admin', city_id=current_city_id) }}" class="btn btn-primary">Add
+            a Venue</a>
+    </div>
+</div>
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="/admin_dashboard" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+
+</body>
+</html>

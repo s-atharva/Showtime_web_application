@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Showtime</title>
+	<style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		.profile-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+		.logout-button {
+			position: absolute;
+			top: 70px;
+			right: 10px;
+		}
+
+    </style>
+</head>
+<body>
+  <h1>Welcome, {{ g.user_name }}</h1>
+  <h2>Your Bookings so far</h2>
+  {% if bookings_details %}
+        <table class="table">
+            <thead>
+              <tr>
+                  <th>Booking ID</th>
+                  <th>Event date</th>
+                  <th>Movie name</th>
+                  <th>Venue name</th>
+                  <th>Timings</th>
+                  <th>Booked at</th>
+                  <th>Total Price</th>
+                  <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for booking_details in bookings_details %}
+                <tr>
+                    <td>{{ booking_details.booking_id}}</td>
+                    <td>{{ booking_details.event_date }}</td>
+                    <td>{{ booking_details.movie_name }}</td>
+                    <td>{{ booking_details.venue_name }}</td>
+                    <td>{{ booking_details.slot }}</td>
+                    <td>{{ booking_details.booked_at }}</td>
+                    <td>{{ booking_details.total_price }}</td>
+                    <td>
+                        <a href="{{ url_for('theatre_services.delete_booking', booking_id=booking_details.booking_id)}}" class="btn btn-primary">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+  </table>
+  {% else %}
+  <h2> No bookings available</h2>
+  {% endif %}
+
+
+
+
+  <form action="/logout" method="POST">
+      <button type="submit" class="logout-button">Logout</button>
+  </form>
+
+  <form action="{{ url_for('user_services.get_user_profile') }}" method="POST">
+      <button type="submit" class="profile-button">Profile</button>
+  </form>
+
+  <form action="/admin_dashboard" method="GET">
+      <button type="submit" class="home-button">Home</button>
+  </form>
+</body>
+</html>

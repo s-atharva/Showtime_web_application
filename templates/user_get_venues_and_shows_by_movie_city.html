@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Venues and Shows</title>
+    <style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		.profile-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+		.logout-button {
+			position: absolute;
+			top: 70px;
+			right: 10px;
+		}
+
+        .venue-box {
+          border: 1px solid black;
+          padding: 10px;
+          margin-bottom: 20px;
+        }
+
+        .show-boxes {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .show-box {
+          border: 1px solid black;
+          padding: 5px;
+          margin-right: 10px;
+          margin-bottom: 10px;
+          text-align: center;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <h1>Venues and shows for {{current_movie.name}} in {{current_city.name}}</h1>
+
+    {% if filtered_venues and filtered_shows%}
+        {% for venue in filtered_venues %}
+
+            <div class="venue-box">
+                <h3>{{ venue.name }}</h3>
+                <p>{{ venue.address }}</p>
+                <div class="show-boxes">
+                    {% for show in filtered_shows if show.movie_id == current_movie.id and show.venue_id == venue.id%}
+                    <div class="show-box">
+                      <p>
+                          <a href="{{url_for('theatre_services.confirm_booking_as_user', movie_id=current_movie.id, show_id=show.id)}}">
+                            {{ show.slot }}
+                          </a>
+                      </p>
+                    </div>
+                  {% endfor %}
+                </div>
+             </div>
+        {% endfor %}
+    {% else %}
+    <h2>No shows available currently for this movie in {{current_city.name}}!!</h2>
+    {% endif %}
+
+
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="{{ url_for('user_services.get_user_profile') }}" method="POST">
+    <button type="submit" class="profile-button">Profile</button>
+</form>
+
+<form action="/user_home" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+</body>
+</html>

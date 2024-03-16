@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Confirmed</title>
+    <style>
+
+
+		/* Position the logout button */
+		.home-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		.profile-button {
+			position: absolute;
+			top: 40px;
+			right: 10px;
+		}
+
+		.logout-button {
+			position: absolute;
+			top: 70px;
+			right: 10px;
+		}
+    </style>
+</head>
+<body>
+
+    <h1>Your tickets have been booked!!</h1>
+
+    <br>
+    <h2>Here are the booking details</h2>
+
+    <h3>Username: {{user_name}}</h3>
+    <h3>Booking ID: {{booking_id}}</h3>
+    <h3>Event Date: {{event_date}}</h3>
+    <h3>Time: {{slot}}</h3>
+    <h3>Movie: {{movie_name}}</h3>
+    <h3>Venue: {{venue_name}}</h3>
+    <h3>City: {{city_name}}</h3>
+    <h3>Price: {{total_price}}</h3>
+
+
+
+
+
+<form action="/logout" method="POST">
+    <button type="submit" class="logout-button">Logout</button>
+</form>
+
+<form action="{{ url_for('user_services.get_user_profile') }}" method="POST">
+    <button type="submit" class="profile-button">Profile</button>
+</form>
+
+<form action="/user_home" method="GET">
+    <button type="submit" class="home-button">Home</button>
+</form>
+</body>
+</html>
